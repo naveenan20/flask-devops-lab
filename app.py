@@ -1,12 +1,15 @@
-from flask import Flask
+from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
-
-@app.route('/')
+@app.route('/hello', methods=['GET'])
 def hello():
-    return 'Hello, DevOps World!'
+    return jsonify(message="Hello, World!")
 
+@app.route('/echo', methods=['POST'])
+def echo():
+    data = request.get_json(force=True)
+    return jsonify(data), 201
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
